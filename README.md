@@ -13,7 +13,6 @@ A modern, responsive, and fully functional web-based chess application powered b
 
 - [Overview](#overview)
 - [Mission](#mission)
-- [Live Demo](#live-demo)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
@@ -35,12 +34,6 @@ It is a web graphical user interface (GUI) for the Stockfish Chess engine. It al
 ## Mission
 
 Our mission is to develop a modern, responsive, free, and open-source web-based chess GUI that brings the power of Stockfish to everyone, anywhere, on any device.
-
----
-
-## Live Demo
-
-🚀 **Try it here**: [https://labinatorsolutions.github.io/stockfish-chess-web-gui/](https://labinatorsolutions.github.io/stockfish-chess-web-gui/)
 
 ---
 
