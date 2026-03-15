@@ -25,7 +25,7 @@ export class StockfishAnalysis {
 			debug: false,
 		});
 		this.lines = {};
-		this.showArrows = true;
+		this.showArrows = false; // Default off
 
 		// i18n support
 		this.i18n = props.i18n || { t: (key) => key }; // Fallback if no i18n provided
@@ -110,6 +110,20 @@ export class StockfishAnalysis {
 
 	setDepth(depth) {
 		this.props.depth = depth;
+	}
+
+	setShowArrows(enabled) {
+		this.showArrows = !!enabled;
+		const toggleInput = document.getElementById("toggle-analysis-arrows");
+		if (toggleInput) {
+			toggleInput.checked = this.showArrows;
+		}
+		if (!this.showArrows) {
+			this.board.removeArrows(ARROW_TYPE.danger);
+			this.board.removeArrows(ARROW_TYPE.info);
+		} else {
+			this.drawAnalysisArrows();
+		}
 	}
 
 	async analyze(fen) {

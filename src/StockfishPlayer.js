@@ -148,6 +148,12 @@ export class StockfishPlayer extends ChessConsolePlayer {
 				}
 				if (data.props.gameMode) {
 					this.state.gameMode = data.props.gameMode;
+					if (this.props.debug) {
+						console.log(
+							"StockfishPlayer: gameMode updated to",
+							this.state.gameMode,
+						);
+					}
 				}
 				if (data.props.playerColor) {
 					this.chessConsole.props.playerColor =
@@ -194,20 +200,26 @@ export class StockfishPlayer extends ChessConsolePlayer {
 
 	moveRequest(fen, moveResponse) {
 		if (this.state.gameMode === "analysis" || this.state.gameMode === "pvp") {
-			const color =
-				this.chessConsole.state.chess.turn() === "w"
-					? COLOR.white
-					: COLOR.black;
+			const turn = this.chessConsole.state.chess.turn();
+			const color = turn === "w" ? COLOR.white : COLOR.black;
+			if (this.props.debug) {
+				console.log("moveRequest (analysis/pvp)", {
+					mode: this.state.gameMode,
+					turn,
+					color,
+				});
+			}
 			if (!this.chessConsole.state.chess.gameOver()) {
-				if (
-					!this.chessConsole.components.board.chessboard.isMoveInputEnabled()
-				) {
-					this.chessConsole.components.board.chessboard.enableMoveInput(
-						(event) => {
-							return this.chessboardMoveInputCallback(event, moveResponse);
-						},
-						color,
-					);
+				const chessboard = this.chessConsole.components.board.chessboard;
+				// Enable move input if not already enabled for the correct color
+				const isCorrectColorEnabled =
+					(color === COLOR.white && chessboard.state.inputWhiteEnabled) ||
+					(color === COLOR.black && chessboard.state.inputBlackEnabled);
+
+				if (!isCorrectColorEnabled) {
+					chessboard.enableMoveInput((event) => {
+						return this.chessboardMoveInputCallback(event, moveResponse);
+					}, color);
 				}
 			}
 			return;
@@ -220,15 +232,17 @@ export class StockfishPlayer extends ChessConsolePlayer {
 		if (turn === playerColor) {
 			// It's the player's turn, engine should just enable move input for player
 			if (!this.chessConsole.state.chess.gameOver()) {
-				if (
-					!this.chessConsole.components.board.chessboard.isMoveInputEnabled()
-				) {
-					this.chessConsole.components.board.chessboard.enableMoveInput(
-						(event) => {
-							return this.chessboardMoveInputCallback(event, moveResponse);
-						},
-						this.chessConsole.props.playerColor,
-					);
+				const chessboard = this.chessConsole.components.board.chessboard;
+				const isCorrectColorEnabled =
+					(this.chessConsole.props.playerColor === COLOR.white &&
+						chessboard.state.inputWhiteEnabled) ||
+					(this.chessConsole.props.playerColor === COLOR.black &&
+						chessboard.state.inputBlackEnabled);
+
+				if (!isCorrectColorEnabled) {
+					chessboard.enableMoveInput((event) => {
+						return this.chessboardMoveInputCallback(event, moveResponse);
+					}, this.chessConsole.props.playerColor);
 				}
 			}
 			return;

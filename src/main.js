@@ -192,6 +192,12 @@ new Board(chessConsole, {
 			if (data.props.boardTheme || data.props.pieceSet) {
 				applyBoardStyle(data.props.boardTheme, data.props.pieceSet);
 			}
+			// Auto toggle arrows based on mode
+			if (data.props.gameMode === "analysis") {
+				analysis.setShowArrows(true);
+			} else if (data.props.gameMode === "pvp") {
+				analysis.setShowArrows(false);
+			}
 			updateAnalysis();
 		},
 	);
@@ -201,6 +207,12 @@ new Board(chessConsole, {
 		(data) => {
 			if (data.props.boardTheme || data.props.pieceSet) {
 				applyBoardStyle(data.props.boardTheme, data.props.pieceSet);
+			}
+			// Auto toggle arrows based on mode
+			if (data.props.gameMode === "analysis") {
+				analysis.setShowArrows(true);
+			} else if (data.props.gameMode === "pvp") {
+				analysis.setShowArrows(false);
 			}
 		},
 	);
