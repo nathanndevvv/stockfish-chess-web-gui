@@ -4262,7 +4262,7 @@ var Chess = function(fen, options) {
       return comments[generate_fen()];
     },
     set_comment: function(comment) {
-      comments[generate_fen()] = comment.replace("{", "[").replace("}", "]");
+      comments[generate_fen()] = comment.replace(/\{/g, "[").replace(/\}/g, "]");
     },
     delete_comment: function() {
       var comment = comments[generate_fen()];
