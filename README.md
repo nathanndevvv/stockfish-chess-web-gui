@@ -1,138 +1,176 @@
-# Web GUI For Stockfish Chess
+# Stockfish Chess Web GUI
 
 ![GUI Type](https://img.shields.io/badge/Type-Web_GUI-orange)
 ![JavaScript](https://img.shields.io/badge/Language-JavaScript-yellow)
 ![Stockfish 17.1 Chess Engine](https://img.shields.io/badge/Stockfish_Chess_Engine-17-43AC6A)
+![License](https://img.shields.io/badge/License-GNU_AGPLv3-blue)
+
+A modern, responsive, and fully functional web-based chess application powered by the **Stockfish 17.1** engine.
+
+---
+
+## 📖 Table of Contents
+
+- [Overview](#overview)
+- [Mission](#mission)
+- [Live Demo](#live-demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Installation & Development](#installation--development)
+- [Configuration](#configuration)
+- [Security Requirements](#security-requirements)
+- [Development & Contribution](#development--contribution)
+- [Credits](#credits)
+- [License](#license)
+
+---
 
 ## Overview
 
-It is a web graphical user interface (GUI) for the Stockfish Chess engine. It is a fully functional web-based chess app that allows you to play against the Stockfish chess engine.
-
-This repository contains three different implementations. The third one is under construction. Explore both and contribute to the one you find most interesting. Ultimately, the third implementation will remain once we reach a stable, bug-free version with sufficient features to be considered professional.
+It is a web graphical user interface (GUI) for the Stockfish Chess engine. It allows you to play against one of the strongest chess engines in the world directly in your browser, with professional-grade analysis tools and a highly customizable interface.
 
 ---
 
 ## Mission
 
-Our mission from this project is to develop a modern responsive free and open source web-based chess GUI powered by the Stockfish chess engine.
+Our mission is to develop a modern, responsive, free, and open-source web-based chess GUI that brings the power of Stockfish to everyone, anywhere, on any device.
 
 ---
 
 ## Live Demo
 
-- https://labinatorsolutions.github.io/stockfish-chess-web-gui/implementation-1/index.html
-- https://labinatorsolutions.github.io/stockfish-chess-web-gui/implementation-2/index.html
-
-**Under Construction**:
-- [https://labinatorsolutions.github.io/stockfish-chess-web-gui/implementation-3/index.html](https://github.com/LabinatorSolutions/stockfish-chess-web-gui/tree/master/implementation-3)
-
-**Note:** The above implementations still require lots of work. Your contribution is always appreciated.
+🚀 **Try it here**: [https://labinatorsolutions.github.io/stockfish-chess-web-gui/](https://labinatorsolutions.github.io/stockfish-chess-web-gui/)
 
 ---
 
-## Installation
+## Features
 
-### Online Installation
+- **Multi-Mode Gameplay**:
+  - **vs. Stockfish (Engine)**: Play against the engine with customizable strength.
+  - **Local PvP (Pass-and-Play)**: Two players on the same device.
+  - **Side Swap**: Switch colors mid-game; the board flips and the engine takes over the other side instantly.
+  - **Analysis Mode**: Infinite analysis for post-game review.
 
-- Download or clone this repository.
-- Upload the unzipped folder of this repository to your web server then view it from your web browser.
+- **Board & Piece Customization**:
+  - **12 Board Themes**: Brown Wood, Red Wine, Green Forest, Blue Sky, and more, optimized for eye comfort.
+  - **Piece Sets**: Choose between Standard and Staunty sets.
+  - **Persistent Settings**: Your preferences are automatically saved in local storage.
 
-### Local Installation
-
-- Download or clone this repository.
-- Install a web server locally to test effectively the GUI.
+- **Advanced Analysis Tools**:
+  - **Multi-threaded Analysis**: Leverage your CPU's power (requires COOP/COEP headers).
+  - **Customizable Engine Parameters**: Adjust Skill Level (1-20), Elo Rating, Fixed Depth (1-36), and Thinking Time.
+  - **Visual Aids**: Hint button for best-move visualization and a toggleable analysis arrow.
+  - **Real-time Eval**: Display real-time evaluation and the top 2 Principal Variations (PVs).
+  - **Annotations**: Right-click to draw arrows and markers on the board.
 
 ---
 
-## Suggestions For Contributors
+## Tech Stack
 
-1. **User Interface**
-   - Responsive Design
-   - Customizable Chessboard
-   - Board Flip
-   - Switch Board
+- **[Bun](https://bun.sh/)**: Fast runtime, package manager, and native bundler.
+- **[Biome](https://biomejs.dev/)**: Ultra-fast linter and formatter.
+- **[cm-chessboard](https://github.com/shaack/cm-chessboard)**: High-quality chessboard visualization.
+- **[chess-console](https://github.com/shaack/chess-console)**: Robust game logic and state management.
+- **Stockfish.js / [cm-engine-runner](https://github.com/shaack/cm-engine-runner)**: Seamless chess engine abstraction.
+- **Bootstrap 5**: Responsive UI styling.
 
-2. **Game Play**
-   - Take Back Moves
-   - Move Hints
-   - Evaluation Bar
-   - Static Evaluation
-   - Legal Move Highlighting
+---
 
-3. **Game Analysis**
-   - Real-time Analysis
-   - Game Review & Evaluation Report
-   - Blunder Detection
-   - Evaluation Graph
-   - Move List
+## Project Structure
 
-4. **Game Management**
-   - Save and Load Games
-   - PGN Viewer
-   - FEN Viewer
-   - Import/Export PGN and FEN
+```text
+├── src/
+│   ├── Config.js                # Core app and engine configuration
+│   ├── CustomStockfishRunner.js # Engine communication layer
+│   ├── StockfishAnalysis.js     # Analysis mode logic
+│   ├── StockfishGameControl.js  # UI-to-engine bridge
+│   ├── StockfishNewGameDialog.js# Game setup modal
+│   ├── StockfishPlayer.js       # Engine move generation logic
+│   ├── StockfishStateView.js    # Performance and evaluation UI
+│   ├── main.js                  # App initialization
+│   └── extensions/              # Extra features (e.g., Markers, Arrows)
+├── server.js                    # Local dev server with security headers
+├── index.html                   # Main entry point
+└── assets/                      # Styles, sounds, and opening books
+```
 
-5. **Board Editor**
-   - Setup Position
-   - Piece Placement
-   - Validate Position
+---
 
-6. **Training Modes**
-   - Tactics Trainer
-   - Endgame Training
-   - Puzzle Rush
+## Installation & Development
 
-7. **Opening Explorer**
-   - Opening Database
+### 1. Install Dependencies
 
-8. **Stockfish Settings**
-   - Skill Level
-   - Depth Control
-   - Thinking Time
+```bash
+bun install
+```
 
-9. **Additional Features**
-   - Highlight Best Move
-   - Multiple Analysis Engines
-   - Engine vs. Engine
-   - Visual Customizations
-   - Coach Mode
-   - Dark/Light Modes
-   - Enhanced Accessibility Features
+### 2. Start Development Server
 
-11. **Keyboard Shortcuts**
-    - Board Controls
-    - Interface Navigation
+```bash
+bun run dev
+```
 
-12. **Scores of All Legal Moves**
-    - Move Evaluation Display
-    - Real-time Updates
+Open `http://localhost:3000`. This runs the Bun bundler in watch mode and serves the app via `server.js` to ensure the required security headers are present.
 
-13. **Analysis Lines**
-    - Multi-Line Display
-    - Interactive Analysis
-    - Depth and Score
+### 3. Build for Production
+
+```bash
+bun run build
+```
+
+The optimized output will be in the `dist` directory.
+
+---
+
+## Configuration
+
+Core constants and default settings are located in `src/Config.js`.
+
+| Setting | Default | Description |
+| :--- | :--- | :--- |
+| `DEFAULT_SKILL_LEVEL` | 20 | Engine strength (1-20) |
+| `DEFAULT_DEPTH` | 16 | Default thinking depth |
+| `WORKER_PATH` | `/engine/...js` | Path to the Stockfish Web Worker |
+| `DEFAULT_THEME` | `brown-wood` | Initial board theme |
+
+---
+
+## Security Requirements
+
+Stockfish 17.1 utilizes multi-threaded WebAssembly, which depends on **SharedArrayBuffer**. For security reasons (Spectre/Meltdown mitigation), modern browsers only enable this feature if the page is cross-origin isolated.
+
+The following headers MUST be present in your hosting environment:
+
+- `Cross-Origin-Opener-Policy: same-origin`
+- `Cross-Origin-Embedder-Policy: require-corp`
+
+If these headers are missing, the engine will either fail to initialize or fall back to a slower, single-threaded mode.
 
 ---
 
 ## Development & Contribution
 
-We welcome all developers to contribute to this repository by fixing bugs or adding features.
+We welcome contributions! Please feel free to open issues or submit pull requests.
 
-It is also great to check our advanced chess app at:
-
-- [https://github.com/LabinatorSolutions/boldchess-web-app](https://github.com/LabinatorSolutions/boldchess-web-app)
-
----
-
-## License
-
-GNU AGPLv3: [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html)
+Interested in more advanced chess tools? Check out our flagship app:
+👉 **[BoldChess Web App](https://github.com/LabinatorSolutions/boldchess-web-app)**
 
 ---
 
 ## Credits
 
-- Stockfish: [https://github.com/official-stockfish/Stockfish](https://github.com/official-stockfish/Stockfish)
-- Stockfish.js: [https://github.com/nmrugg/stockfish.js](https://github.com/nmrugg/stockfish.js)
-- BoldChess: [https://boldchess.com](https://boldchess.com/)
-- Labinator: [https://labinator.com](https://labinator.com/)
+- **Stockfish**: [Official Engine](https://github.com/official-stockfish/Stockfish)
+- **Stockfish.js**: [WASM Port](https://github.com/nmrugg/stockfish.js)
+- **BoldChess**: [boldchess.com](https://boldchess.com/)
+- **Labinator**: [labinator.com](https://labinator.com/)
+
+---
+
+## License
+
+This project is licensed under the **GNU AGPLv3**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+*Verified and maintained by [BoldChess.com](https://boldchess.com) | A project by [Labinator.com](https://labinator.com)*
