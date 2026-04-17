@@ -11,7 +11,9 @@
   },
   "description": "StockfishPlayer for ChessConsole",
   "scripts": {
-    "dev": "bun build ./index.html --outdir ./dist --watch & bun run copy-assets --watch & bun server.js",
+    "dev:build": "bun build ./index.html --outdir ./dist --watch",
+    "dev:server": "bun server.js",
+    "dev": "bun run copy-assets && concurrently \"bun run dev:build\" \"bun run dev:server\"",
     "start": "bun run dev",
     "build": "rm -rf dist && bun build ./index.html --outdir ./dist --minify && bun run copy-assets",
     "copy-assets": "mkdir -p dist/assets && cp -r assets/* dist/assets/ 2>/dev/null || true && mkdir -p dist/assets/cm-chessboard && cp -r node_modules/cm-chessboard/assets/* dist/assets/cm-chessboard/ 2>/dev/null || true && cp -r public/* dist/ 2>/dev/null || true",
@@ -21,5 +23,8 @@
     "lint:fix": "biome check --write src",
     "typecheck": "echo 'No TypeScript configured; skipping typecheck'"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
